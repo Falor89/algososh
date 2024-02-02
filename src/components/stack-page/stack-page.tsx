@@ -8,6 +8,8 @@ import { Input } from "../ui/input/input";
 import { ElementStates } from "../../types/element-states";
 import timeout from "../../services/timeout";
 import { Stack } from "./utils";
+import { SHORT_DELAY_IN_MS, DELAY_IN_MS, VERY_SHORT_DELAY_IN_MS } from "../../constants/delays";
+
 
 type TArrItem = {
   text: string;
@@ -43,7 +45,7 @@ export const StackPage: React.FC = () => {
     })
 
     setStack([...array])
-    await timeout(500)
+    await timeout(SHORT_DELAY_IN_MS)
     curStack.push({
       text: value,
       state: ElementStates.Default,
@@ -63,7 +65,7 @@ export const StackPage: React.FC = () => {
     let array = [...curStack.getItems()];
     (array[array.length - 1] as TArrItem).state = ElementStates.Changing;
     setStack([...array]);
-    await timeout(500);
+    await timeout(SHORT_DELAY_IN_MS);
 
     curStack.pop();
     setStack([...curStack.getItems()]);

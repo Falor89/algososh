@@ -8,6 +8,8 @@ import { Circle } from "../ui/circle/circle";
 import { Input } from "../ui/input/input";
 import timeout from "../../services/timeout";
 import { Queue } from "./utils";
+import { SHORT_DELAY_IN_MS, DELAY_IN_MS } from "../../constants/delays";
+
 
 type TQueueItem = {
   text: string;
@@ -41,7 +43,7 @@ export const QueuePage: React.FC = () => {
     })
     arr[queue.getTail()].state = ElementStates.Changing;
     setElements([...arr]);
-    await timeout(500)
+    await timeout(SHORT_DELAY_IN_MS)
 
     setElements([...queue.getElements()]);
     setValue('');

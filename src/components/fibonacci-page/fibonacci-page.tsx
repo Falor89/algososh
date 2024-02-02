@@ -7,6 +7,8 @@ import { Input } from "../ui/input/input";
 import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
 import timeout from "../../services/timeout";
+import { SHORT_DELAY_IN_MS, DELAY_IN_MS } from "../../constants/delays";
+
 
 export const FibonacciPage: React.FC = () => {
   const [value, setValue] = useState('');
@@ -24,7 +26,7 @@ export const FibonacciPage: React.FC = () => {
 
     const array = fibonachi(Number(value));
     for (let i = 0; i < array.length; i++) {
-      await timeout(500)
+      await timeout(SHORT_DELAY_IN_MS)
       setArray(value => [...value, array[i]])
     }
     setLodaing(false)
@@ -33,7 +35,7 @@ export const FibonacciPage: React.FC = () => {
   return (
     <SolutionLayout title="Последовательность Фибоначчи">
       <form onSubmit={onSubmit} className={styles.form}>
-        <Input max={19} type="text" value={value} onChange={onChange} />
+        <Input max={19} type="number" value={value} onChange={onChange} />
         <Button disabled={Number(value) <= 0 || Number(value) > 19} type={'submit'} text={'Развернуть'} isLoader={loading} />
         <p className={styles.text}>Максимальное число - 19</p>
       </form>

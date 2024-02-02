@@ -8,6 +8,7 @@ import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { LinkedList, LinkedListNode } from "./list";
 import styles from './styles.module.css';
 import timeout from "../../services/timeout";
+import { SHORT_DELAY_IN_MS, DELAY_IN_MS } from "../../constants/delays";
 
 type TListItem = {
   state: ElementStates;
@@ -55,13 +56,13 @@ export const ListPage: React.FC = () => {
     if (arr.length > 0) {
       arr[0].head = value;
       setArray([...arr]);
-      await timeout(500);
+      await timeout(SHORT_DELAY_IN_MS);
     }
     list.prepend({ value: value, state: ElementStates.Default });
     arr = returnArray();
     arr[0].state = ElementStates.Modified;
     setArray([...arr]);
-    await timeout(500);
+    await timeout(SHORT_DELAY_IN_MS);
     setArray([...list.toArray()]);
     setTextValue('');
     setLoading(false);
@@ -78,13 +79,13 @@ export const ListPage: React.FC = () => {
     if (arr.length > 0) {
       arr.at(-1)!.head = value;
       setArray([...arr]);
-      await timeout(500);
+      await timeout(SHORT_DELAY_IN_MS);
     }
     list.append({ value: value, state: ElementStates.Default });
     arr = returnArray();
     arr.at(-1)!.state = ElementStates.Modified;
     setArray([...arr]);
-    await timeout(500);
+    await timeout(SHORT_DELAY_IN_MS);
     setArray([...list.toArray()]);
     setTextValue('');
     setLoading(false);
@@ -99,7 +100,7 @@ export const ListPage: React.FC = () => {
       arr[0].tail = arr[0].value;
       arr[0].value = '';
       setArray([...arr]);
-      await timeout(500);
+      await timeout(SHORT_DELAY_IN_MS);
       list.deleteHead();
       setArray([...list.toArray()]);
       setTextValue('');
@@ -116,7 +117,7 @@ export const ListPage: React.FC = () => {
       arr.at(-1)!.tail = arr.at(-1)!.value;
       arr.at(-1)!.value = '';
       setArray([...arr]);
-      await timeout(500);
+      await timeout(SHORT_DELAY_IN_MS);
       list.deleteTail();
       setArray([...list.toArray()]);
       setTextValue('');
@@ -138,12 +139,12 @@ export const ListPage: React.FC = () => {
       for (let i = 0; i <= num; i++) {
         arr[i].state = ElementStates.Changing;
         setArray([...arr]);
-        await timeout(500);
+        await timeout(SHORT_DELAY_IN_MS);
       }
       arr[num].tail = arr[num].value;
       arr[num].value = '';
       setArray([...arr]);
-      await timeout(500);
+      await timeout(SHORT_DELAY_IN_MS);
       list.deleteByIndex(num);
       setArray([...list.toArray()]);
       setIndex('');
@@ -174,13 +175,13 @@ export const ListPage: React.FC = () => {
         }
         arr[i].head = value;
         setArray([...arr]);
-        await timeout(1000);
+        await timeout(DELAY_IN_MS);
       }
       list.addByIndex(Number(index), { value: value, state: ElementStates.Default });
       arr = returnArray();
       arr[num].state = ElementStates.Modified;
       setArray([...arr]);
-      await timeout(1000);
+      await timeout(DELAY_IN_MS);
       setArray([...list.toArray()]);
       setIndex('');
       setTextValue('')
@@ -192,12 +193,12 @@ export const ListPage: React.FC = () => {
   return (
     <SolutionLayout title="Связный список">
       <div className={styles.controll}>
-        <Input disabled={loading} type="text" isLimitText={true} value={value} id='text' onChange={onChange} maxLength={4} />
+        <Input placeholder={'Введите значение'} disabled={loading} type="text" isLimitText={true} value={value} id='text' onChange={onChange} maxLength={4} />
         <Button id="prepend" isLoader={action === 'prepend'} onClick={prepend} disabled={loading || value === ''} text="Добавить в head" />
         <Button id="append" isLoader={action === 'append'} onClick={append} disabled={loading || value === ''} text="Добавить в tail" />
         <Button id="deleteHead" isLoader={action === 'deleteHead'} onClick={deleteHead} disabled={loading || array.length === 0} text="Удалить из head" />
         <Button id="deleteTail" isLoader={action === 'deleteTail'} onClick={deleteTail} disabled={loading || array.length === 0} text="Удалить из tail" />
-        <Input disabled={loading} type="number" id="index" value={index} onChange={onChange} />
+        <Input placeholder={'Введите индекс'} disabled={loading} type="number" id="index" value={index} onChange={onChange} />
         <Button id="addByIndex" isLoader={action === 'addByIndex'} onClick={addByIndex} disabled={
           loading || value === '' || index === '' || Number(index) < 0 || Number(index) > array.length
         } extraClass={styles.longButton_left} text="Добавить по индексу" />

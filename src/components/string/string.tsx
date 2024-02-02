@@ -8,6 +8,7 @@ import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { ElementStates } from "../../types/element-states";
+import { DELAY_IN_MS } from "../../constants/delays";
 
 type TLetter = {
   letter: string;
@@ -37,12 +38,12 @@ export const StringComponent: React.FC = () => {
     const middle = Math.floor(value.length / 2)
     for (let i = 0; i < middle; i++) {
       const changeElement = [i, value.length - 1 - i];
-      await timeout(1000);
+      await timeout(DELAY_IN_MS);
 
       newArray[changeElement[0]].state = ElementStates.Changing;
       newArray[changeElement[1]].state = ElementStates.Changing;
       setArray([...newArray]);
-      await timeout(1000);
+      await timeout(DELAY_IN_MS);
 
       newArray = [...result[i].map((letter, index) => ({
         letter: letter,

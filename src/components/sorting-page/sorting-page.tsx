@@ -9,6 +9,7 @@ import timeout from "../../services/timeout";
 import { bubbleSortByStep, selectSortSteps, swap } from "./utils";
 import { Direction } from "../../types/direction";
 import { Column } from "../ui/column/column";
+import { VERY_SHORT_DELAY_IN_MS, SHORT_DELAY_IN_MS, DELAY_IN_MS } from "../../constants/delays";
 
 type TArrayItem = {
   number: number;
@@ -57,11 +58,11 @@ export const SortingPage: React.FC = () => {
 
     while (i < arr.length - 1) {
       for (let j = 0; j < arr.length - 1 - i; j++) {
-        await timeout(200)
+        await timeout(SHORT_DELAY_IN_MS)
         arr[j].state = ElementStates.Changing
         arr[j + 1].state = ElementStates.Changing
         setArray([...arr]);
-        await timeout(200)
+        await timeout(VERY_SHORT_DELAY_IN_MS)
 
         const arrNums = bubbleSortByStep(type, array.map(item => item.number), i, j)
         arr = arr.map((item, index) => ({
@@ -69,7 +70,7 @@ export const SortingPage: React.FC = () => {
           state: item.state,
         }))
         setArray([...arr])
-        await timeout(200)
+        await timeout(VERY_SHORT_DELAY_IN_MS)
         arr[j].state = ElementStates.Default
       }
       i++
@@ -93,21 +94,21 @@ export const SortingPage: React.FC = () => {
       arr[i].state = ElementStates.Changing;
       setArray([...arr]);
       for (let n = i + 1; n < arr.length; n++) {
-        await timeout(250);
+        await timeout(VERY_SHORT_DELAY_IN_MS);
         arr[n].state = ElementStates.Changing;
         setArray([...arr]);
         if (type === 'asc' ? arr[selected].number > arr[n].number : arr[selected].number < arr[n].number) {
-          await timeout(250)
+          await timeout(VERY_SHORT_DELAY_IN_MS)
           arr[selected].state = ElementStates.Default;
           selected = n
           setArray([...arr]);
         } else {
-          await timeout(250)
+          await timeout(VERY_SHORT_DELAY_IN_MS)
           arr[n].state = ElementStates.Default;
           setArray([...arr]);
         }
       }
-      await timeout(2000)
+      await timeout(DELAY_IN_MS * 2)
       arr = arr.map((item, index) => ({
         state: item.state,
         number: result[i][index]
@@ -130,7 +131,7 @@ export const SortingPage: React.FC = () => {
       <div className={styles.form}>
         <RadioInput label={'Выбор'} disabled={loading} onChange={onChange} checked={'select' === sortType} value={'select'} />
         <RadioInput label={'Пузырёк'} disabled={loading} onChange={onChange} checked={'bubble' === sortType} value={'bubble'} />
-        <Button text={'По возрастанию'} isLoader={type === 'abc'} disabled={loading} sorting={Direction.Ascending} onClick={() => { sorting('asc') }} />
+        <Button text={'По возрастанию'} isLoader={type === 'asc'} disabled={loading} sorting={Direction.Ascending} onClick={() => { sorting('asc') }} />
         <Button text={'По убыванию'} isLoader={type === 'desc'} disabled={loading} sorting={Direction.Descending} onClick={() => { sorting('desc') }} />
         <Button text={'Новый массив'} disabled={loading} onClick={getRandomArr} />
       </div>
