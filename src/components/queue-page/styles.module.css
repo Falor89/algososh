@@ -1,0 +1,18 @@
+.form {
+    margin: 0 auto 48px;
+    display: grid;
+    grid-template-columns: 377px 130px 130px 188px;
+    column-gap: 12px;
+    justify-items: flex-end;
+    width: fit-content;
+}
+
+.solution {
+    margin: 78px auto 0;
+    display: flex;
+    flex-direction: row;
+    column-gap: 16px;
+    list-style: none;
+    flex-wrap: wrap;
+    width: fit-content;
+}
