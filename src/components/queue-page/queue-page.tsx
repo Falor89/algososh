@@ -63,11 +63,11 @@ export const QueuePage: React.FC = () => {
     <SolutionLayout title="Очередь">
       <form onSubmit={onSubmit} className={styles.form}>
         <Input disabled={loading} type="text" isLimitText={true} value={value} onChange={onChange} maxLength={4} />
-        <Button isLoader={loading} disabled={loading || value === '' || !queue.hasFreePlace()} type={'submit'} text="Добавить" />
-        <Button disabled={loading || queue.isEmpty()} onClick={dequeue} type={'button'} text="Удалить" id="delete" />
-        <Button disabled={loading || queue.isEmpty()} onClick={clear} type={'button'} text="Очистить" id="clear" />
+        <Button id='submit' isLoader={loading} disabled={loading || value === '' || !queue.hasFreePlace()} type={'submit'} text="Добавить" />
+        <Button id='delete' disabled={loading || queue.isEmpty()} onClick={dequeue} type={'button'} text="Удалить" />
+        <Button id='clear' disabled={loading || queue.isEmpty()} onClick={clear} type={'button'} text="Очистить" />
       </form>
-      <ul className={styles.solution}>
+      <ul className={styles.solution} id="solution">
         {
           elements.map((item, index) => (
             <Circle state={item.state} letter={item.text} key={index} index={index}

@@ -61,7 +61,7 @@ export const StringComponent: React.FC = () => {
         <Button disabled={value === ''} type={'submit'} text={'Развернуть'} isLoader={loading} />
         <p className={styles.text}>Максимум - 11 символов</p>
       </form>
-      <div className={styles.solution}>
+      <div className={styles.solution} id='solution'>
         {
           array.map((item, index) => (
             <Circle state={item.state} letter={item.letter} key={index} />
