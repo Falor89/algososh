@@ -83,11 +83,11 @@ export const StackPage: React.FC = () => {
     <SolutionLayout title="Стек">
       <form onSubmit={onSubmit} className={styles.form}>
         <Input type='text' isLimitText={true} maxLength={4} value={value} onChange={onChange}></Input>
-        <Button isLoader={action === 'add'} disabled={loading || value === ''} type="submit" text="Добавить" ></Button>
-        <Button isLoader={action === 'pop'} disabled={loading || curStack.getSize() === 0} onClick={pop} type="button" text='Удалить'></Button>
-        <Button disabled={loading || curStack.getSize() === 0} onClick={clear} type='button' text='Очистить'></Button>
+        <Button id="submit" isLoader={action === 'add'} disabled={loading || value === ''} type="submit" text="Добавить" ></Button>
+        <Button id='delete' isLoader={action === 'pop'} disabled={loading || curStack.getSize() === 0} onClick={pop} type="button" text='Удалить'></Button>
+        <Button id='clear' disabled={loading || curStack.getSize() === 0} onClick={clear} type='button' text='Очистить'></Button>
       </form>
-      <ul className={styles.solution}>
+      <ul className={styles.solution} id="solution">
         {
           stack.map((item, index) => (
             <Circle state={item.state} letter={item.text} key={index} index={index} head={index === stack.length - 1 ? 'top' : ''} />

@@ -36,10 +36,10 @@ export const FibonacciPage: React.FC = () => {
     <SolutionLayout title="Последовательность Фибоначчи">
       <form onSubmit={onSubmit} className={styles.form}>
         <Input max={19} type="number" value={value} onChange={onChange} />
-        <Button disabled={Number(value) <= 0 || Number(value) > 19} type={'submit'} text={'Развернуть'} isLoader={loading} />
+        <Button disabled={Number(value) <= 0 || Number(value) > 19} id="submit" type={'submit'} text={'Развернуть'} isLoader={loading} />
         <p className={styles.text}>Максимальное число - 19</p>
       </form>
-      <div className={styles.solution}>
+      <div className={styles.solution} id='solution'>
         {
           array.map((item, index) => (
             <Circle letter={`${item}`} key={index} index={index} />
